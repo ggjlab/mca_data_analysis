@@ -7,7 +7,7 @@
 
 
 #use the index sequence to get raw.data
- ./sccpipe -I /home/ggj/Documents/Rawdata/lane7/INPUT/  -O /home/ggj/Documents/Rawdata/lane7/OUTPUT/
+ ./sccpipe -I INPUT/  -O OUTPUT/
 
 #cut off the sccpipe when the first step is finished 
 #filiter the sequence including the CGACTCACTACAGGG,TCGGTGACACGATCG,TTTTTTTTTTTT 
