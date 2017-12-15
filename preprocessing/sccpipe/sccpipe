@@ -1,0 +1,386 @@
+#!/bin/bash
+# Yincong Zhou
+# 9th Jan, 2017
+# Pipeline for scRNA data analysis
+
+# for parameter pass and help documents
+
+source sccpipe.conf
+Core=$(cat /proc/cpuinfo | grep process| wc -l)
+Core_use_back=`echo $Core-4|bc`
+# Missm=1
+usage_conf ()
+{
+  echo ""
+  echo "Check your configure parameter in sscpipe.conf"
+  echo ""
+  exit
+}
+
+usage ()
+{
+  echo 'Usage : sscpipe -I <Input File Directory> -O <Output File Directory>'
+  echo '                  '
+  exit
+}
+
+## parse parameters in config file
+
+
+##End parsing 
+if [ $Indexpath = "" ]
+then
+  echo ""
+  echo "Can not find Index File >..<"
+  usage_conf
+elif [ ! -d $Indexpath ]
+then
+  echo ""
+  echo "Not a valid Index Path >..<"
+  usage_conf
+fi
+
+if [ $GTFFile = "" ]
+then
+    usage_conf
+elif [ ! -f $GTFFile ]
+then
+  echo ""
+  echo "Not a valid GTF File >..<"
+  usage_conf
+fi
+
+if [ $barcodefile = "" ]
+then
+    echo " "
+    usage_conf
+elif [ ! -f $barcodefile ]
+then
+  echo " "
+  echo "ERROR: Not a valid barcode text File >..<"
+  usage_conf
+fi
+
+if [ $Core_use = "" ]
+then
+  echo ""
+  echo "Can not find CPU threads, use Default"
+  Core_use=$Core_use_back
+fi
+## parse input parameters
+
+if [ "$#" -ne 4 ]
+then
+  echo "Please input parameters required :>_<:"
+  usage
+fi
+
+while [ "$1" != "" ]; do
+case $1 in
+        -I )           shift
+                       InputDir=$1
+                       ;;
+        -O )           shift
+                       OutputDir=$1
+        #                ;;
+        # -B )           shift
+        #                barcodefile=$1
+                       ;;
+        * )            QUERY=$1
+    esac
+    shift
+done
+
+if [ "$InputDir" = "" ]
+then
+    usage
+elif [ ! -d $InputDir ]
+then
+  echo "ERROR: Input file Directory not found >..<" 
+  usage
+else
+  echo "Set the  Input Directory : "$(readlink -f $InputDir)
+fi
+
+if [ $OutputDir = "" ]
+then
+  usage
+elif [ -d $OutputDir ]
+  then 
+    echo " "
+    echo "ERROR: Output dir named as "$OutputDir" already exist!"
+    usage
+else
+  mkdir $OutputDir
+  echo "Set the Output Directory : "$(readlink -f $OutputDir)    
+fi
+
+
+
+COLarray=("COL01" "COL02" "COL03" "COL04" "COL05" "COL06" "COL07" "COL08" "COL09" "COL10" "COL11" "COL12" "COL13" "COL14" "COL15" "COL16" "COL17" "COL18" "COL19" "COL20")
+Subarray=("ROW01" "ROW02" "ROW03" "ROW04" "ROW05" "ROW06" "ROW07" "ROW08" "ROW09" "ROW10" "ROW11" "ROW12" "ROW13" "ROW14" "ROW15" "ROW16" "ROW17" "ROW18" "ROW19" "ROW20" "ROW21" "ROW22" "ROW23" "ROW24" "ROW25" "ROW26" "ROW27" "ROW28" "ROW29" "ROW30" "ROW31" "ROW32" "ROW33" "ROW34" "ROW35" "ROW36" "ROW37" "ROW38" "ROW39" "ROW40")
+
+
+# End of help documents
+initPath=$(pwd)
+# Prepare fastq file 
+FullInPath=$(readlink -f $InputDir)
+FullOutPath=$(readlink -f $OutputDir)
+
+in1=$(ls $FullInPath|grep "R1")
+in2=$(ls $FullInPath|grep "R2")
+
+barcodelenth=$(head -n 1 $FullInPath"/"$in2 | awk -F ":" '{printf $NF}'|wc -c)
+Samplename=$(echo $in1 | cut -d '_' -f 1)
+logfile=$FullOutPath"/"$Samplename".log"
+touch $logfile
+errlog=$FullOutPath"/"$Samplename"_ERROR.log"
+touch $errlog
+Indexfilter=$FullOutPath"/"$Samplename"_1_filter"
+Indexfilter_unmatched=$Indexfilter"/"$Samplename"unmatch"
+
+mkdir $Indexfilter
+
+
+echo "************1. Filtering Illumina Index**************" >> $logfile
+echo "************1. Filtering Illumina Index**************" >> $errlog
+echo "-----------------------------------------------------"
+echo "************1. Filtering Illumina Index**************"
+echo $(date +"%b %d %T")" ..... Start 1"
+echo $(date +"%b %d %T")" ..... Genrating temfile"
+
+## for the R1 file
+/home/ggj/Documents/Genome-tools/sccpipe/scripts/Colsplit.pl $FullInPath $Indexfilter $barcodefile $Missm $barcodelenth 1>>$logfile 2>>$errlog &
+wait
+# cd $InputDir
+# split -l $linesplit *R1.* -d -a 2 R1_tmp 
+# cd $initPath
+# R1temcount=0
+# R1temp=$(ls $InputDir"/"R1_tmp* | wc -l)
+# for i in $InputDir"/"R1_tmp*
+# do
+# R1temcount=$(($R1temcount+1))
+# R1tmploop=$(($R1temcount%$Core_use))
+#   if [ $R1tmploop -eq 0 ];
+#   then
+#     echo $(date +"%b %d %T")" ..... Start the "$R1temcount" spliting, "$(($R1temp-$R1temcount))" left"
+    
+#     python scripts/Colsplit.py $i $FullOutPath 1>>$logfile 2>>$errlog &
+#     wait
+#   else 
+#     echo $(date +"%b %d %T")" ..... Start the "$R1temcount" spliting, "$(($R1temp-$R1temcount))" left"
+    
+#     python scripts/Colsplit.py $i $FullOutPath 1>>$logfile 2>>$errlog &
+#   fi
+
+# done
+# wait 
+# rm $InputDir"/"R1_tmp*
+
+# echo $(date +"%b %d %T")" ..... Merging R1 RESULTs"
+# for i in ${COLarray[*]}
+# do 
+#   mkdir $Indexfilter"/"$i
+#   cat $FullOutPath"/"R1_tmp*$i > $Indexfilter"/"$i"/"$i"_"$Samplename"_R1.fastq"
+#   echo $(date +"%b %d %T")" ..... Merged R1_"$i
+#   rm $FullOutPath"/R1_tmp"*$i
+# done
+# mkdir $Indexfilter"/unmatch"
+# cat $FullOutPath"/"R1_*unmatch.fastq > $Indexfilter"/unmatch/"$Samplename"_unmatched_R1.fastq"
+# rm $FullOutPath"/R1"*unmatch.fastq
+
+# wait
+# ## for the R2 file
+# echo $(date +"%b %d %T")" ..... Starting processing R2 file"
+# cd $InputDir
+# split -l $linesplit *R2.* -d -a 2 R2_tmp 
+# cd $initPath
+# R2temcount=0
+# R2temp=$(ls $InputDir"/"R2_tmp* | wc -l)
+# for i in $InputDir"/"R2_tmp*
+# do
+#   R2temcount=$(($R2temcount+1))
+#   R2tmploop=$(($R2temcount%$Core_use))
+#   if [ $R2tmploop -eq 0 ];
+#   then
+#     echo $(date +"%b %d %T")" ..... Start the "$R2temcount" spliting, "$(($R2temp-$R2temcount))" left"
+    
+#     python scripts/Colsplit.py $i $FullOutPath  1>>$logfile 2>>$errlog &
+#     wait
+#   else 
+#     echo $(date +"%b %d %T")" ..... Start the "$R2temcount" spliting, "$(($R2temp-$R2temcount))" left"
+    
+#     python scripts/Colsplit.py $i $FullOutPath  1>>$logfile 2>>$errlog &
+#   fi
+# done
+# wait 
+# rm $InputDir"/"R2_tmp*
+# echo $(date +"%b %d %T")" ..... Merging R2 RESULTs"
+# for i in ${COLarray[*]}
+# do 
+#   cat $FullOutPath"/"R2_tmp*$i >  $Indexfilter"/"$i"/"$i"_"$Samplename"_R2.fastq"
+#   echo $(date +"%b %d %T")" ..... Merged R2_"$i
+#   # echo $(date +"%b %d %T")" ..... Start Trimming "$i &
+#   # cutadapt -a "A{90}" -o $Indexfilter"/"$i"/"$Samplename"_"$i"_R2.fastq"  $Indexfilter"/"$Samplename"_"$i"_R2.fastq" 1>>$logfile 2>>$errlog &
+#   rm $FullOutPath"/"R2_tmp*$i
+# done
+# wait
+# cat $FullOutPath"/"R2_*unmatch.fastq > $Indexfilter"/unmatch/"$Samplename"_unmatched_R2.fastq"
+# rm $FullOutPath"/"R2*.fastq
+
+echo $(date +"%b %d %T")" ..... End 1"
+echo "-----------------------------------------------------"
+echo ""
+echo "-----------------------------------------------------" >> $errlog
+echo "-----------------------------------------------------" >> $logfile
+
+
+echo "************2. To 800 Cells**************************" >> $errlog
+echo "************2. To 800 Cells**************************" >> $logfile
+echo "-----------------------------------------------------"
+echo "************2. To 800 Cells**************************"
+echo $(date +"%b %d %T")" ..... Start 2"
+#echo $(date +"%b %d %T")" ..... Genrating temfile"
+# scPath=$FullOutPath"/"$Samplename"_2_SCell"
+# mkdir $scPath
+
+# mRNASeqHT_demultiplex.pl -i "$Indexfilter/COL01" -o "$scPath/COL01" &
+wait
+scPath=$FullOutPath"/"$Samplename"_2_SCell"
+mkdir $scPath
+for i in ${COLarray[*]}
+do
+  echo $(date +"%b %d %T")" ..... Starting split "$i 
+  mRNASeqHT_demultiplex.pl -i "$Indexfilter/"$i -o "$scPath/"$i  1>>$logfile 2>>$errlog &
+  
+done
+wait
+
+
+
+echo $(date +"%b %d %T")" ..... END 2"
+echo "-----------------------------------------------------"
+echo "-----------------------------------------------------" >> $errlog
+echo "-----------------------------------------------------" >> $logfile
+
+#polyAcounts=6
+Quelity_filter=$FullOutPath"/"$Samplename"_3_qulitified_R2"
+mkdir $Quelity_filter
+mkdir $Quelity_filter"/bad_out"
+echo "************3. Trim PolyA/T**************************"
+echo "************3. Trim PolyA/T**************************" >> $logfile
+echo "************3. Trim PolyA/T**************************" >> $errlog
+echo $(date +"%b %d %T")" ..... Start 3"
+for i in ${Subarray[*]}
+do
+  for m in ${COLarray[*]}
+  do
+    echo $(date +"%b %d %T")" ..... Trimming Poly A for "$m"/"$m"_"$i"_"$Samplename 
+
+    #prinseq-lite.pl -fastq $scPath"/"$m"/"$m"_"$i"_"$Samplename"_R2.fastq" -out_format 3 -trim_tail_right $polyAcounts -out_good $Quelity_filter"/"$m"_"$i"_"$Samplename"_R2" -out_bad $Quelity_filter"/bad_out/"$m"_"$i"_"$Samplename"_R2_bad"  1>>$logfile 2>>$errlog &
+    polyA.pl $scPath"/"$m"/"$m"_"$i"_"$Samplename"_R2.fastq" $Quelity_filter"/"$m"_"$i"_"$Samplename"_R2.fastq" $Quelity_filter"/bad_out/"$m"_"$i"_"$Samplename"_R2_bad"  $polyAcounts $Mode 1>>$logfile 2>>$errlog &
+  done
+  wait
+done
+echo $(date +"%b %d %T")" ..... END 3"
+echo "-----------------------------------------------------"
+echo "-----------------------------------------------------" >> $logfile
+echo "-----------------------------------------------------" >> $errlog
+
+
+#################### Run STAT Alignment#######################
+echo "-----------------------------------------------------"
+echo "************4. Alignment*****************************"
+echo "************4. Alignment*****************************" >> $errlog
+echo "************4. Alignment*****************************" >> $logfile
+
+echo $(date +"%b %d %T")" ..... Start 4"
+STAROutDIR=$FullOutPath"/"$Samplename"_4_Alginment_R2"
+mkdir $STAROutDIR
+aligncount=0
+for i in $Quelity_filter"/"*fastq
+do
+  aligncount=$(($aligncount+1))
+  shouldwait=$(($aligncount%10))
+  align_single=$(echo $i | awk -F "/|[.]" '{print $(NF-1)}')
+  if [ $shouldwait -eq 0 ];
+  then
+    echo $(date +"%b %d %T")" ..... Start the "$aligncount" cell Alignment, "$((800-$aligncount))" left"
+    STAR --runThreadN 2 --genomeDir $Indexpath --readFilesIn $i --outFileNamePrefix $STAROutDIR"/"$align_single"_"  --genomeLoad LoadAndKeep 1>>$logfile 2>>$errlog &
+    wait
+  else 
+    echo $(date +"%b %d %T")" ..... Start the "$aligncount" cell Alignment, "$((800-$aligncount))" left"
+    STAR --runThreadN 2 --genomeDir $Indexpath --readFilesIn $i --outFileNamePrefix $STAROutDIR"/"$align_single"_"  --genomeLoad LoadAndKeep 1>>$logfile 2>>$errlog &
+  fi
+done
+echo $(date +"%b %d %T")" ..... END 4"
+echo "-----------------------------------------------------"
+echo "-----------------------------------------------------" >> $logfile
+echo "-----------------------------------------------------" >> $errlog
+echo ""
+
+
+# ####################To 800 single cells########################
+# echo "-----------------------------------------------------"
+# echo "************7. To Single Sam*************************"
+
+# echo $(date +"%b %d %T")" ..... Start 7"
+# single_SAM=$FullOutPath"/"$Samplename"_7_SingleSam_R2"
+# mkdir $single_SAM;
+# Dsinglecell.pl $STAROutDIR"/"$Samplename"_Aligned.out.sam" $location_out"/"$Samplename"_Sequence_location.txt" $Samplename $single_SAM 2>>$errlog
+# echo $(date +"%b %d %T")" ..... END 7"
+# echo "-----------------------------------------------------"
+# echo ""
+
+###################Quantify the gene counts####################
+echo "-----------------------------------------------------"
+echo "************5. Quantification************************"
+echo "************5. Quantification************************" >>$logfile
+echo "************5. Quantification************************" >>$errlog
+
+echo $(date +"%b %d %T")" ..... Start 5"
+samcount=0
+DGEOut=$FullOutPath"/"$Samplename"_5_DGEs_R2"
+mkdir $DGEOut
+mkdir $DGEOut"/summary"
+
+for i in $STAROutDIR"/"*sam
+do
+  samcount=$(($samcount+1))
+  shouldwait=$(($samcount%Core_use))
+  dgename=`echo $i| awk -F '/' '{print $NF}' | sed "s/_R2_Aligned.out.sam/\n/"`
+
+  if [ $shouldwait -eq 0 ];
+  then
+    echo $(date +"%b %d %T")" ..... Start the "$samcount" cell Quantification, "$((800-$samcount))" left"
+    featureCounts -t exon -g gene_name -a $GTFFile -o $DGEOut"/"$dgename".txt" $i 1>> $FullOutPath"/tmp.txt" 2>>$FullOutPath"/tmp.txt" &
+    wait
+  else 
+    echo $(date +"%b %d %T")" ..... Start the "$samcount" cell Quantification, "$((800-$samcount))" left"
+    featureCounts -t exon -g gene_name -a $GTFFile -o $DGEOut"/"$dgename".txt" $i 1>> $FullOutPath"/tmp.txt" 2>>$FullOutPath"/tmp.txt" &
+  fi
+done
+rm $FullOutPath"/tmp.txt"
+mv $DGEOut"/"*txt.summary $DGEOut"/summary/"
+echo $(date +"%b %d %T")" ..... END 5"
+echo "-----------------------------------------------------"
+echo "-----------------------------------------------------" >> $errlog
+echo "-----------------------------------------------------" >> $logfile
+
+echo "************6. merge DGE file************************"
+echo "************6. merge DGE file************************" >> $errlog
+echo "************6. merge DGE file************************" >> $logfile
+echo $(date +"%b %d %T")" ..... Start 6"
+
+dgemerge=$FullOutPath"/"$Samplename"_6_DGE_OUT"
+mkdir $dgemerge
+Rscript /home/ggj/Documents/sccpipe/scripts/mergeDGE.R $DGEOut $dgemerge $Samplename
+
+echo $(date +"%b %d %T")" ..... Genrate s4Class file for futher step"
+echo $(date +"%b %d %T")" ..... done"
+echo $(date +"%b %d %T")" ..... End 9"
+
+echo $(date +"%b %d %T")" ..... END sscpipe; please check the ERRORlog!"
+echo "-----------------------------------------------------"
+echo "-----------------------------------------------------" 
+echo "-----------------------------------------------------" 

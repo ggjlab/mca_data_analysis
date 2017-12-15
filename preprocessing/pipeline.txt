@@ -1,0 +1,18 @@
+#use the index sequence to get raw.data
+ggj@ggj-HP-Z840-Workstation:~/Documents/Genome-tools/sccpipe$ ./sccpipe -I /home/ggj/Documents/Rawdata/lane7/INPUT/  -O /home/ggj/Documents/Rawdata/lane7/OUTPUT/
+#cut off the sccpipe when the first step is finished 
+#filiter the sequence including the CGACTCACTACAGGG,TCGGTGACACGATCG,TTTTTTTTTTTT 
+ggj@ggj-HP-Z840-Workstation:~$ ggj@ggj-HP-Z840-Workstation:~$ /home/ggj/Documents/Genome-tools/bbmap/bbduk2.sh in=/home/ggj/Documents/201711/20171020Lung/INPUT/Undetermined_S0_L007_R1_001.fastq in2=/home/ggj/Documents/201711/20171020Lung/INPUT/Undetermined_S0_L007_R2_001.fastq outm=/home/ggj/Documents/201711/20171020Lung/INPUT/Undetermined_S0_L007_c1_R1_001.fastq outm2=/home/ggj/Documents/201711/20171020Lung/INPUT/Undetermined_S0_L007_c1_R2_001.fastq fliteral=CGACTCACTACAGGG k=15 skipr2=t hdist=3 -Xmx58g
+
+ggj@ggj-HP-Z840-Workstation:~$ /home/ggj/Documents/Genome-tools/bbmap/bbduk2.sh in=/home/ggj/Documents/201711/20171020Lung/INPUT/Undetermined_S0_L007_c1_R1_001.fastq in2=/home/ggj/Documents/201711/20171020Lung/INPUT/Undetermined_S0_L007_c1_R2_001.fastq outm=/home/ggj/Documents/201711/20171020Lung/INPUT/Undetermined_S0_L007_c2_R1_001.fastq outm2=/home/ggj/Documents/201711/20171020Lung/INPUT/Undetermined_S0_L007_c2_R2_001.fastq fliteral=TCGGTGACACGATCG k=15 skipr2=t hdist=3 -Xmx58g
+
+ggj@ggj-HP-Z840-Workstation:~$ /home/ggj/Documents/Genome-tools/bbmap/bbduk2.sh in=/home/ggj/Documents/201711/20171020Lung/INPUT/Undetermined_S0_L007_c2_R1_001.fastq in2=/home/ggj/Documents/201711/20171020Lung/INPUT/Undetermined_S0_L007_c2_R2_001.fastq outm=/home/ggj/Documents/201711/20171020Lung/INPUT/Undetermined_S0_L007_c3_R1_001.fastq outm2=/home/ggj/Documents/201711/20171020Lung/INPUT/Undetermined_S0_L007_c3_R2_001.fastq fliteral=TTTTTTTTTTTT k=12 skipr2=t hdist=3 -Xmx58g
+#get the bam file
+ggj@ggj-HP-Z840-Workstation:~$ java -Xmx58g -jar /home/ggj/Documents/Genome-tools/Drop-seq_tools-1.12/Drop-seq_tools-1.12/3rdParty/picard/picard.jar  FastqToSam F1=/home/ggj/Documents/201711/20171020Lung/INPUT/Undetermined_S0_L007_c3_R1_001.fastq F2=/home/ggj/Documents/201711/20171020Lung/INPUT/Undetermined_S0_L007_c3_R2_001.fastq  O=/home/ggj/Documents/201711/20171020Lung/INPUT/20171020Lung.bam QUALITY_FORMAT=Standard SAMPLE_NAME=sample_name
+#get dge
+ggj@ggj-HP-Z840-Workstation:~$ /home/ggj/Documents/Genome-tools/Drop-seq_tools-1.12/Drop-seq_tools-1.12/Drop-seq_alignment_DS.sh  -g /home/ggj/Documents/STAR_Reference_Mouse/genomeDir -r /home/ggj/Documents/STAR_Reference_Mouse/Mus_musculus.GRCm38.88.fa -d  /home/ggj/Documents/Genome-tools/Drop-seq_tools-1.12/Drop-seq_tools-1.12/ -o /home/ggj/Documents/201711/20171020Lung/INPUT/ -t /home/ggj/Documents/201711/20171020Lung/INPUT/ -s /home/ggj/Documents/Genome-tools/STAR-2.5.2a/source/STAR  /home/ggj/Documents/201711/20171020Lung/INPUT/20171020Lung.bam
+
+
+
+
+
