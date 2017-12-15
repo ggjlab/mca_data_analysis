@@ -13,7 +13,7 @@
 #filiter the sequence including the CGACTCACTACAGGG,TCGGTGACACGATCG,TTTTTTTTTTTT 
 ./bbmap/bbduk2.sh in=INPUT/Undetermined_S0_L007_R1_001.fastq in2=INPUT/Undetermined_S0_L007_R2_001.fastq outm=INPUT/Undetermined_S0_L007_c1_R1_001.fastq outm2=INPUT/Undetermined_S0_L007_c1_R2_001.fastq fliteral=CGACTCACTACAGGG k=15 skipr2=t hdist=3 -Xmx58g
 
-ggj@ggj-HP-Z840-Workstation:~$ /home/ggj/Documents/Genome-tools/bbmap/bbduk2.sh in=INPUT/Undetermined_S0_L007_c1_R1_001.fastq in2=INPUT/Undetermined_S0_L007_c1_R2_001.fastq outm=INPUT/Undetermined_S0_L007_c2_R1_001.fastq outm2=INPUT/Undetermined_S0_L007_c2_R2_001.fastq fliteral=TCGGTGACACGATCG k=15 skipr2=t hdist=3 -Xmx58g
+./bbduk2.sh in=INPUT/Undetermined_S0_L007_c1_R1_001.fastq in2=INPUT/Undetermined_S0_L007_c1_R2_001.fastq outm=INPUT/Undetermined_S0_L007_c2_R1_001.fastq outm2=INPUT/Undetermined_S0_L007_c2_R2_001.fastq fliteral=TCGGTGACACGATCG k=15 skipr2=t hdist=3 -Xmx58g
 
 ./bbmap/bbduk2.sh in=INPUT/Undetermined_S0_L007_c2_R1_001.fastq in2=INPUT/Undetermined_S0_L007_c2_R2_001.fastq outm=INPUT/Undetermined_S0_L007_c3_R1_001.fastq outm2=INPUT/Undetermined_S0_L007_c3_R2_001.fastq fliteral=TTTTTTTTTTTT k=12 skipr2=t hdist=3 -Xmx58g
 
