@@ -1,0 +1,3 @@
+[submodule "scMCA"]
+	path = scMCA
+	url = https://github.com/ggjlab/scMCA
