@@ -1,6 +1,6 @@
 ## Data preprocess protocal
 ---
-
+[bbmap](https://github.com/BioInfoTools/BBMap) and [Drop-seq_tools-1.12](http://mccarrolllab.com/dropseq/) were included. 
 ### an example
 
 ```shell
@@ -25,3 +25,4 @@ java -Xmx58g -jar Drop-seq_tools-1.12/Drop-seq_tools-1.12/3rdParty/picard/picard
 
 
 ```
+
