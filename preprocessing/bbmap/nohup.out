@@ -1,0 +1,173 @@
+java -Djava.library.path=/home/ggj/Documents/tools/bbmap/jni/ -ea -Xmx24983m -Xms24983m -cp /home/ggj/Documents/tools/bbmap/current/ jgi.BBDuk2 in=/home/ggj/Documents/data/CD106W2/CD106W2_R1.fq in2=/home/ggj/Documents/data/CD106W2/CD106W2_R2.fq outm=/home/ggj/Documents/data/CD106W2/CD106W2_R1_clean1.fq outm2=/home/ggj/Documents/data/CD106W2/CD106W2_R2_clean1.fq fliteral=CGACTCACTACAGGG k=15 hdist=3 skipr2=t
+Executing jgi.BBDuk2 [in=/home/ggj/Documents/data/CD106W2/CD106W2_R1.fq, in2=/home/ggj/Documents/data/CD106W2/CD106W2_R2.fq, outm=/home/ggj/Documents/data/CD106W2/CD106W2_R1_clean1.fq, outm2=/home/ggj/Documents/data/CD106W2/CD106W2_R2_clean1.fq, fliteral=CGACTCACTACAGGG, k=15, hdist=3, skipr2=t]
+
+BBDuk2 version 35.85
+k=15
+maskMiddle=true
+hamming distance=3
+kfiltering using 1 literal.
+
+Initial:
+Memory: max=25106m, free=24320m, used=786m
+
+Added 10690 kmers; time: 	0.117 seconds.
+Memory: max=25106m, free=23403m, used=1703m
+
+Input is being processed as paired
+Started output streams:	0.061 seconds.
+java -Djava.library.path=/home/ggj/Documents/tools/bbmap/jni/ -ea -Xmx24000m -Xms24000m -cp /home/ggj/Documents/tools/bbmap/current/ jgi.BBDuk2 in=/home/ggj/Documents/data/CD106W2/CD106W2_R1.fq in2=/home/ggj/Documents/data/CD106W2/CD106W2_R2.fq outm=/home/ggj/Documents/data/CD106W2/CD106W2_R1_clean1.fq outm2=/home/ggj/Documents/data/CD106W2/CD106W2_R2_clean1.fq fliteral=CGACTCACTACAGGG k=15 hdist=3 skipr2=t
+Executing jgi.BBDuk2 [in=/home/ggj/Documents/data/CD106W2/CD106W2_R1.fq, in2=/home/ggj/Documents/data/CD106W2/CD106W2_R2.fq, outm=/home/ggj/Documents/data/CD106W2/CD106W2_R1_clean1.fq, outm2=/home/ggj/Documents/data/CD106W2/CD106W2_R2_clean1.fq, fliteral=CGACTCACTACAGGG, k=15, hdist=3, skipr2=t]
+
+BBDuk2 version 35.85
+k=15
+maskMiddle=true
+hamming distance=3
+kfiltering using 1 literal.
+
+Exception in thread "main" java.lang.AssertionError: File /home/ggj/Documents/data/CD106W2/CD106W2_R1_clean1.fq exists and overwrite=false
+	at align2.Tools.testOutputFiles(Tools.java:293)
+	at jgi.BBDuk2.<init>(BBDuk2.java:755)
+	at jgi.BBDuk2.main(BBDuk2.java:67)
+Processing time:   		8991.091 seconds.
+
+Input:                  	972546522 reads 		145881978300 bases.
+Contaminants:           	346093538 reads (35.59%) 	51914030700 bases (35.59%)
+Result:                 	626452984 reads (64.41%) 	93967947600 bases (64.41%)
+
+Time:   			8991.286 seconds.
+Reads Processed:        972m 	108.17k reads/sec
+Bases Processed:     145881m 	16.22m bases/sec
+java -Djava.library.path=/home/ggj/Documents/tools/bbmap/jni/ -ea -Xmx24896m -Xms24896m -cp /home/ggj/Documents/tools/bbmap/current/ jgi.BBDuk2 in=/home/ggj/Documents/data/CD106W2/CD106W2_R1_clean1.fq in2=/home/ggj/Documents/data/CD106W2/CD106W2_R2_clean1.fq outm=/home/ggj/Documents/data/CD106W2/CD106W2_R1_clean2.fq outm2=/home/ggj/Documents/data/CD106W2/CD106W2_R2_clean2.fq fliteral=TCGGTGACACGATCG k=15 hdist=3 skipr2=t
+Executing jgi.BBDuk2 [in=/home/ggj/Documents/data/CD106W2/CD106W2_R1_clean1.fq, in2=/home/ggj/Documents/data/CD106W2/CD106W2_R2_clean1.fq, outm=/home/ggj/Documents/data/CD106W2/CD106W2_R1_clean2.fq, outm2=/home/ggj/Documents/data/CD106W2/CD106W2_R2_clean2.fq, fliteral=TCGGTGACACGATCG, k=15, hdist=3, skipr2=t]
+
+BBDuk2 version 35.85
+k=15
+maskMiddle=true
+hamming distance=3
+kfiltering using 1 literal.
+
+Initial:
+Memory: max=25017m, free=24234m, used=783m
+
+Added 10690 kmers; time: 	0.100 seconds.
+Memory: max=25017m, free=23320m, used=1697m
+
+Input is being processed as paired
+Started output streams:	0.049 seconds.
+java -Djava.library.path=/home/ggj/Documents/tools/bbmap/jni/ -ea -Xmx44931m -Xms44931m -cp /home/ggj/Documents/tools/bbmap/current/ jgi.BBDuk2 in=/home/ggj/Documents/data/1213CDN_S0_L001_R1_001.fastq in2=/home/ggj/Documents/data/1213CDN_S0_L001_R2_001.fastq outm=/home/ggj/Documents/data/1213CDN_S0_L001_R1_c1.fastq outm2=/home/ggj/Documents/data/1213CDN_S0_L001_R2_c1.fastq fliteral=CGACTCACTACAGGG k=15 skipr2=t hdist=0
+Executing jgi.BBDuk2 [in=/home/ggj/Documents/data/1213CDN_S0_L001_R1_001.fastq, in2=/home/ggj/Documents/data/1213CDN_S0_L001_R2_001.fastq, outm=/home/ggj/Documents/data/1213CDN_S0_L001_R1_c1.fastq, outm2=/home/ggj/Documents/data/1213CDN_S0_L001_R2_c1.fastq, fliteral=CGACTCACTACAGGG, k=15, skipr2=t, hdist=0]
+
+BBDuk2 version 35.85
+k=15
+maskMiddle=true
+kfiltering using 1 literal.
+
+Initial:
+Memory: max=45151m, free=43738m, used=1413m
+
+Added 1 kmers; time: 	0.056 seconds.
+Memory: max=45151m, free=42089m, used=3062m
+
+Input is being processed as paired
+Started output streams:	0.128 seconds.
+Processing time:   		15462.877 seconds.
+
+Input:                  	630090632 reads 		95143685432 bases.
+Contaminants:           	352259962 reads (55.91%) 	53191254262 bases (55.91%)
+Result:                 	277830670 reads (44.09%) 	41952431170 bases (44.09%)
+
+Time:   			15463.105 seconds.
+Reads Processed:        630m 	40.75k reads/sec
+Bases Processed:      95143m 	6.15m bases/sec
+java -Djava.library.path=/home/ggj/Documents/tools/bbmap/jni/ -ea -Xmx48508m -Xms48508m -cp /home/ggj/Documents/tools/bbmap/current/ jgi.BBDuk2 in=/home/ggj/Documents/data/1213CDN_S0_L001_R1_c1.fastq in2=/home/ggj/Documents/data/1213CDN_S0_L001_R2_c1.fastq outm=/home/ggj/Documents/data/1213CDN_S0_L001_R1_c2.fastq outm2=/home/ggj/Documents/data/1213CDN_S0_L001_R2_c2.fastq fliteral=TCGGTGACACGATCG k=15 skipr2=t hdist=0
+Executing jgi.BBDuk2 [in=/home/ggj/Documents/data/1213CDN_S0_L001_R1_c1.fastq, in2=/home/ggj/Documents/data/1213CDN_S0_L001_R2_c1.fastq, outm=/home/ggj/Documents/data/1213CDN_S0_L001_R1_c2.fastq, outm2=/home/ggj/Documents/data/1213CDN_S0_L001_R2_c2.fastq, fliteral=TCGGTGACACGATCG, k=15, skipr2=t, hdist=0]
+
+BBDuk2 version 35.85
+k=15
+maskMiddle=true
+kfiltering using 1 literal.
+
+Initial:
+Memory: max=48745m, free=47219m, used=1526m
+
+Added 1 kmers; time: 	0.080 seconds.
+Memory: max=48745m, free=45438m, used=3307m
+
+Input is being processed as paired
+Started output streams:	0.117 seconds.
+Processing time:   		3167.875 seconds.
+
+Input:                  	352259962 reads 		53191254262 bases.
+Contaminants:           	236085476 reads (67.02%) 	35648906876 bases (67.02%)
+Result:                 	116174486 reads (32.98%) 	17542347386 bases (32.98%)
+
+Time:   			3168.094 seconds.
+Reads Processed:        352m 	111.19k reads/sec
+Bases Processed:      53191m 	16.79m bases/sec
+java -Djava.library.path=/home/ggj/Documents/tools/bbmap/jni/ -ea -Xmx48512m -Xms48512m -cp /home/ggj/Documents/tools/bbmap/current/ jgi.BBDuk2 in=/home/ggj/Documents/data/1213CDN_S0_L001_R1_c2.fastq in2=/home/ggj/Documents/data/1213CDN_S0_L001_R2_c2.fastq outm=/home/ggj/Documents/data/1213CDN_S0_L001_R1_c3.fastq outm2=/home/ggj/Documents/data/1213CDN_S0_L001_R2_c3.fastq fliteral=TTTTTTTTTTTT k=12 skipr2=t hdist=0
+Executing jgi.BBDuk2 [in=/home/ggj/Documents/data/1213CDN_S0_L001_R1_c2.fastq, in2=/home/ggj/Documents/data/1213CDN_S0_L001_R2_c2.fastq, outm=/home/ggj/Documents/data/1213CDN_S0_L001_R1_c3.fastq, outm2=/home/ggj/Documents/data/1213CDN_S0_L001_R2_c3.fastq, fliteral=TTTTTTTTTTTT, k=12, skipr2=t, hdist=0]
+
+BBDuk2 version 35.85
+k=12
+maskMiddle=true
+kfiltering using 1 literal.
+
+Initial:
+Memory: max=48749m, free=47223m, used=1526m
+
+Added 1 kmers; time: 	0.045 seconds.
+Memory: max=48749m, free=45442m, used=3307m
+
+Input is being processed as paired
+Started output streams:	0.087 seconds.
+Processing time:   		2257.992 seconds.
+
+Input:                  	236085476 reads 		35648906876 bases.
+Contaminants:           	217013892 reads (91.92%) 	32769097692 bases (91.92%)
+Result:                 	19071584 reads (8.08%) 	2879809184 bases (8.08%)
+
+Time:   			2258.133 seconds.
+Reads Processed:        236m 	104.55k reads/sec
+Bases Processed:      35648m 	15.79m bases/sec
+java -Djava.library.path=/home/ggj/Documents/tools/bbmap/jni/ -ea -Xmx50497m -Xms50497m -cp /home/ggj/Documents/tools/bbmap/current/ jgi.BBDuk2 in=/home/ggj/ANNUO_170526/CD3P/CD3P_R1_c2.fq in2=/home/ggj/ANNUO_170526/CD3P/CD3P_R2_c2.fq outm=/home/ggj/ANNUO_170526/CD3P/CD3P_R1_c3.fq outm2=/home/ggj/ANNUO_170526/CD3P/CD3P_R2_c3.fq skipr2=t k=12 hdist=0 fliteral=TTTTTTTTTTTT
+Executing jgi.BBDuk2 [in=/home/ggj/ANNUO_170526/CD3P/CD3P_R1_c2.fq, in2=/home/ggj/ANNUO_170526/CD3P/CD3P_R2_c2.fq, outm=/home/ggj/ANNUO_170526/CD3P/CD3P_R1_c3.fq, outm2=/home/ggj/ANNUO_170526/CD3P/CD3P_R2_c3.fq, skipr2=t, k=12, hdist=0, fliteral=TTTTTTTTTTTT]
+
+BBDuk2 version 35.85
+k=12
+maskMiddle=true
+kfiltering using 1 literal.
+
+Initial:
+Memory: max=50744m, free=49156m, used=1588m
+
+Added 1 kmers; time: 	0.051 seconds.
+Memory: max=50744m, free=47302m, used=3442m
+
+Input is being processed as paired
+Started output streams:	0.044 seconds.
+Processing time:   		2687.309 seconds.
+
+Input:                  	313732620 reads 		47059893000 bases.
+Contaminants:           	284987082 reads (90.84%) 	42748062300 bases (90.84%)
+Result:                 	28745538 reads (9.16%) 	4311830700 bases (9.16%)
+
+Time:   			2687.428 seconds.
+Reads Processed:        313m 	116.74k reads/sec
+Bases Processed:      47059m 	17.51m bases/sec
+java -ea -Xmx400m -cp /home/ggj/Documents/tools/bbmap/current/ jgi.DemuxByName in=/home/ggj/ANNUO_170526/CD3P/CD3P_R#_c3.fq out= /home/ggj/ANNUO_170526/CD3P/out_%_#.fq prefixmode=f names=CTCTCTAC,TCCTGAGC
+Executing jgi.DemuxByName [in=/home/ggj/ANNUO_170526/CD3P/CD3P_R#_c3.fq, out=, /home/ggj/ANNUO_170526/CD3P/out_%_#.fq, prefixmode=f, names=CTCTCTAC,TCCTGAGC]
+
+Unknown parameter /home/ggj/ANNUO_170526/CD3P/out_%_#.fq
+Exception in thread "main" java.lang.AssertionError: Unknown parameter /home/ggj/ANNUO_170526/CD3P/out_%_#.fq
+	at jgi.DemuxByName.<init>(DemuxByName.java:110)
+	at jgi.DemuxByName.main(DemuxByName.java:44)
+java -ea -Xmx400m -cp /home/ggj/Documents/tools/bbmap/current/ jgi.DemuxByName in=/home/ggj/ANNUO_170526/CD3P/CD3P_R#_c3.fq out=/home/ggj/ANNUO_170526/CD3P/out_%_#.fq prefixmode=f names=CTCTCTAC,TCCTGAGC
+Executing jgi.DemuxByName [in=/home/ggj/ANNUO_170526/CD3P/CD3P_R#_c3.fq, out=/home/ggj/ANNUO_170526/CD3P/out_%_#.fq, prefixmode=f, names=CTCTCTAC,TCCTGAGC]
+
+Set INTERLEAVED to false
+Input is being processed as paired
+Time:               2726.221 seconds.
+Reads Processed:    284987082 	104.54k reads/sec
+Bases Processed:    42748062300 	15.68m bases/sec
+Reads Out:    541021852
+Bases Out:    81153277800
